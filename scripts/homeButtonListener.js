@@ -20,7 +20,7 @@ async function sendFeedback(uuid, url, happy) {
 function feedbackSelected(happy) {
     let uuid = getUUID();
     let url = window.location.href;
-    if ( happy ) {
+    if (happy) {
         // happy selected
         sendFeedback(uuid, url, true);
         let happyImage = document.getElementById("feedback-happy");
@@ -41,24 +41,24 @@ function feedbackSelected(happy) {
 
 function goToGithub() {
     window.open(
-        'https://github.com/supertokens/supertokens-node-mysql-ref-jwt',
+        'https://github.com/supertokens/supertokens-website',
         '_blank'
     );
 }
 
-function create_UUID(){
+function create_UUID() {
     var dt = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (dt + Math.random()*16)%16 | 0;
-        dt = Math.floor(dt/16);
-        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
 }
 
 function getUUID() {
     let userId = localStorage.getItem("uuid");
-    if ( userId === null || userId === undefined ) {
+    if (userId === null || userId === undefined) {
         // generate new one
         userId = create_UUID();
         localStorage.setItem("uuid", userId);
@@ -70,7 +70,7 @@ function getFeedbackButtons(mode) {
     let alignItems = "center";
     let justifyContent = "center";
 
-    if ( mode === 'mobile' ) {
+    if (mode === 'mobile') {
         alignItems = "left";
         justifyContent = "left";
     }
@@ -80,18 +80,18 @@ function getFeedbackButtons(mode) {
     let sadSelected = ["", splittedCurrPath[1], "img", "sadSelected.png"].join("/");
     return `
         <div
-            style="display: flex; flex: 1; flex-direction: column; align-items: `+alignItems+`; justify-content: `+justifyContent+`">
+            style="display: flex; flex: 1; flex-direction: column; align-items: `+ alignItems + `; justify-content: ` + justifyContent + `">
             <div
                 style="display: flex;">
                 <img
                     id="feedback-sad"
-                    src="`+sadSelected+`"
+                    src="`+ sadSelected + `"
                     class="feedback-button-sad"
                     onClick="feedbackSelected(false)"/>
 
                 <img
                     id="feedback-happy"
-                    src="`+happySelected+`"
+                    src="`+ happySelected + `"
                     class="feedback-button-happy"
                     onClick="feedbackSelected(true)"/>
             </div>
@@ -105,16 +105,16 @@ function getFeedbackButtons(mode) {
 
 function addFeedbackButtons() {
     let prevNextContainer = document.getElementsByClassName("docs-prevnext")[0];
-    if ( prevNextContainer === null || prevNextContainer === undefined ) {
+    if (prevNextContainer === null || prevNextContainer === undefined) {
         return;
     }
-    if ( window.screen.width <= 735 ) {
+    if (window.screen.width <= 735) {
         // MOBILE
         let feedbackButton = getFeedbackButtons("mobile");
         prevNextContainer.innerHTML = `
             <div style="position: relative">
-                `+feedbackButton+`
-                `+prevNextContainer.innerHTML+`
+                `+ feedbackButton + `
+                `+ prevNextContainer.innerHTML + `
             </div>
         `;
     } else {
@@ -122,8 +122,8 @@ function addFeedbackButtons() {
         let feedbackButton = getFeedbackButtons("web");
         prevNextContainer.innerHTML = `
             <div style="position: relative">
-                `+prevNextContainer.innerHTML+`
-                `+feedbackButton+`
+                `+ prevNextContainer.innerHTML + `
+                `+ feedbackButton + `
             </div>
         `;
     }

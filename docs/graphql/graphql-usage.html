@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Usage with GraphQL · SuperTokens</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;h2&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;usage-with-interceptors&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#usage-with-interceptors&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Usage with Interceptors&lt;/h2&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Usage with GraphQL · SuperTokens"/><meta property="og:type" content="website"/><meta property="og:url" content="https://supertokens.github.io/supertokens-website//supertokens-website/"/><meta property="og:description" content="&lt;h2&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; id=&quot;usage-with-interceptors&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#usage-with-interceptors&quot; aria-hidden=&quot;true&quot; class=&quot;hash-link&quot;&gt;&lt;svg class=&quot;hash-link-icon&quot; aria-hidden=&quot;true&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;Usage with Interceptors&lt;/h2&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/supertokens-website/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-143540696-1"></script><script type="text/javascript" src="/supertokens-website/scripts/homeButtonListener.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"backgroundColor":"#999999","textColor":"#222222"}
+          )
+        });
+        </script><script src="/supertokens-website/js/scrollSpy.js"></script><link rel="stylesheet" href="/supertokens-website/css/main.css"/><script src="/supertokens-website/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/supertokens-website/"><img class="logo" src="/supertokens-website/img/superTokens.png" alt="SuperTokens"/><h2 class="headerTitleWithLogo">SuperTokens</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/supertokens-website/docs/introduction/why" target="_self">Docs</a></li><li class=""><a href="https://discordapp.com/invite/zVcVeev" target="_self">Discord</a></li><li class=""><a href="https://hackernoon.com/the-best-way-to-securely-manage-user-sessions-91f27eeef460" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>GraphQL</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Introduction<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/introduction/why">Why is this needed</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/introduction/installation">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Usage with Fetch<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/fetch/initialisation">Init &amp; Imports Using Fetch</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/fetch/sending-requests">Sending Requests with Fetch</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/fetch/manually-refresh">Manual refresh</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/fetch/non-spa">For non-SPA websites</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/fetch/cookies-and-localstorage">Cookies and Localstorage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Usage with Axios<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/axios/initialisation">Init &amp; Imports Using Axios</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/axios/sending-requests">Sending Requests with Axios</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/axios/manually-refresh">Manual refresh</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/axios/non-spa">For non-SPA websites</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/axios/cookies-and-localstorage">Cookies and Localstorage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">GraphQL<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem navListItemActive"><a class="navItem" href="/supertokens-website/docs/graphql/graphql-usage">Usage with GraphQL</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">API Reference<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/api-reference/api-reference">API Reference</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Usage with GraphQL</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="usage-with-interceptors"></a><a href="#usage-with-interceptors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage with Interceptors</h2>
+<p>You can configure SuperTokens to intercept API calls when initialising the package. The package will then append the <code>anti-CSRF token</code> to all requests, automatically call the refresh token endpoint in the case of access token expiry and call the API again with the new tokens.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
+<span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
+<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
+<span class="hljs-keyword">import</span> SuperTokensRequest <span class="hljs-keyword">from</span> <span class="hljs-string">'supertokens-website'</span>;
+
+SuperTokensRequest.init(<span class="hljs-string">"/refreshsession"</span>, <span class="hljs-number">440</span>, <span class="hljs-literal">true</span>);
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
+    <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
+        <span class="hljs-attr">uri</span>: <span class="hljs-string">"/graphql"</span>,  <span class="hljs-comment">// change this depending on your path</span>
+    }),
+    <span class="hljs-attr">cache</span>: <span class="hljs-keyword">new</span> InMemoryCache(),  <span class="hljs-comment">// change this depending on your preference</span>
+    <span class="hljs-comment">// ... other params</span>
+});
+
+<span class="hljs-comment">// use client as usual.</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="usage-without-interceptors"></a><a href="#usage-without-interceptors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage without Interceptors</h2>
+<p>If you choose to opt out of interceptors using SuperTokens you need to manually change the way the client handles API calls. SuperTokens will automatically call the refresh token endpoint in case of access token expiry and will call the API again with the new tokens.</p>
+<pre><code class="hljs css language-js"><span class="hljs-keyword">import</span> { InMemoryCache } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-cache-inmemory'</span>;
+<span class="hljs-keyword">import</span> { ApolloClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-client'</span>;
+<span class="hljs-keyword">import</span> { HttpLink } <span class="hljs-keyword">from</span> <span class="hljs-string">'apollo-link-http'</span>;
+<span class="hljs-keyword">import</span> SuperTokensRequest <span class="hljs-keyword">from</span> <span class="hljs-string">'supertokens-website'</span>;
+
+SuperTokensRequest.init(<span class="hljs-string">"/refreshsession"</span>, <span class="hljs-number">440</span>);
+
+<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
+    <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
+        <span class="hljs-attr">uri</span>: <span class="hljs-string">"/graphql"</span>,  <span class="hljs-comment">// change this depending on your path</span>
+        fetch: <span class="hljs-function">(<span class="hljs-params">uri, options</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> SuperTokensRequest.fetch(uri, options);
+        }
+    }),
+    <span class="hljs-attr">cache</span>: <span class="hljs-keyword">new</span> InMemoryCache(),  <span class="hljs-comment">// change this depending on your preference</span>
+    <span class="hljs-comment">// ... other params</span>
+});
+
+<span class="hljs-comment">// use client as usual.</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/supertokens-website/docs/axios/cookies-and-localstorage"><span class="arrow-prev">← </span><span>Cookies and Localstorage</span></a><a class="docs-next button" href="/supertokens-website/docs/migration/migration"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div></div></div></body></html>
