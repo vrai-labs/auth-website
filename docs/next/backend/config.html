@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Configuration · SuperTokens</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;This is an &lt;code&gt;object&lt;/code&gt; that needs to be given as a parameter to the &lt;code&gt;init&lt;/code&gt; function when your node server starts.&lt;/p&gt;
+"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Configuration · SuperTokens"/><meta property="og:type" content="website"/><meta property="og:url" content="https://supertokens.github.io/supertokens-website//supertokens-website/"/><meta property="og:description" content="&lt;p&gt;This is an &lt;code&gt;object&lt;/code&gt; that needs to be given as a parameter to the &lt;code&gt;init&lt;/code&gt; function when your node server starts.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/supertokens-website/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=UA-143540696-1"></script><script type="text/javascript" src="/supertokens-website/scripts/homeButtonListener.js"></script><script src="https://unpkg.com/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+          addBackToTop(
+            {"zIndex":100,"backgroundColor":"#999999","textColor":"#222222"}
+          )
+        });
+        </script><script src="/supertokens-website/js/scrollSpy.js"></script><link rel="stylesheet" href="/supertokens-website/css/main.css"/><script src="/supertokens-website/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/supertokens-website/"><img class="logo" src="/supertokens-website/img/superTokens.png" alt="SuperTokens"/><h2 class="headerTitleWithLogo">SuperTokens</h2></a><a href="/supertokens-website/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/supertokens-website/docs/next/introduction/what-and-why" target="_self">Docs</a></li><li class=""><a href="https://discordapp.com/invite/zVcVeev" target="_self">Discord</a></li><li class=""><a href="https://hackernoon.com/the-best-way-to-securely-manage-user-sessions-91f27eeef460" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Backend</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Introduction<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/introduction/what-and-why">What and Why</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/introduction/next-steps">Next Steps</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Backend<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/installation">Installation</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Usage with Express</h4><ul><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/initialisation">Init &amp; Imports</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/user-login">User login</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/verify-session">Verify Session</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/session-object">Session Object</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/refreshing-session">Refreshing Session</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/manipulating-session-data">Manipulating Session Data</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/user-logout">User Logout</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-with-express/revoking-session">Revoking Session</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Usage without Express</h4><ul><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/initialisation">Init &amp; Imports</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/user-login">User login</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/verify-session">Verify Session</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/refreshing-session">Refreshing Session</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/manipulating-session-data">Manipulating Session Data</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/user-logout">User Logout</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/usage-without-express/revoking-session">Revoking Session</a></li></ul></div><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/error-handling">Error Handling</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/session-handle">Session Handle</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/token-theft">Token Theft Detection</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/blacklisting">Blacklisting</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/jwt-key-rotation">JWT Signing key rotation</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/supertokens-website/docs/next/backend/config">Configuration</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/backend/api-reference">API Reference</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Frontend<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/why">Why is this needed</a></li><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Website</h4><ul><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/installation">Installation</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/initialisation">Init &amp; Imports Using Fetch</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/sending-requests">Sending Requests with Fetch</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/initialisation-axios">Init &amp; Imports Using Axios</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/sending-requests-axios">Sending Requests with Axios</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/manually-refresh">Manual refresh</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/non-spa">For non-SPA websites</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/graphql-usage">Usage with GraphQL</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/cookies-and-localstorage">Cookies and Localstorage</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/website/api-reference">API Reference</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">iOS</h4><ul><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/ios/coming-soon">Coming Soon</a></li></ul></div><div class="navGroup subNavGroup"><h4 class="navGroupSubcategoryTitle">Android</h4><ul><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/frontend/android/coming-soon">Coming Soon</a></li></ul></div></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">How it works<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/how-it-works/details">How it works</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Example Project<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/try-it-out/example">Example code and Demo</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Limitations<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/limitations/limitations">Limitations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Migration<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/migration/backend">Backend</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/migration/database">Database</a></li><li class="navListItem"><a class="navItem" href="/supertokens-website/docs/next/migration/website">Website</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Configuration</h1></header><article><div><span><p>This is an <code>object</code> that needs to be given as a parameter to the <code>init</code> function when your node server starts.</p>
+<p>This object has the following shape:</p>
+<pre><code class="hljs css language-ts"><span class="hljs-comment">// "?" means that parameter is optional</span>
+<span class="hljs-keyword">let</span> config = {
+    mysql: {
+        host?: <span class="hljs-built_in">string</span>,  <span class="hljs-comment">// default localhost</span>
+        port?: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// default 3306</span>
+        user: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// If the tables in the database are not created already, then this user must have permission to create tables.</span>
+        password: <span class="hljs-built_in">string</span>,
+        connectionLimit?: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// default 50</span>
+        database: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// name of the database to connect to. This must be created before running this package</span>
+        tables?: {
+            signingKey?: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// default signing_key - table name used to store secret keys</span>
+            refreshTokens?: <span class="hljs-built_in">string</span> <span class="hljs-comment">// default refresh_token - table name used to store sessions</span>
+        }
+    },
+    tokens: {
+        accessToken?: {
+            signingKey?: {
+                dynamic?: <span class="hljs-built_in">boolean</span>, <span class="hljs-comment">// default true - if this is true, then the JWT signing key will change automatically ever updateInterval hours (Unless you use the get function mentioned below).</span>
+                updateInterval?: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// in hours - default 24 - should be &gt;= 1 &amp;&amp; &lt;= 720. Determines how often to change the signing key. If dynamic is false, then this does not matter. </span>
+                <span class="hljs-keyword">get</span>?: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;, <span class="hljs-comment">// default undefined - If you want to give your own JWT signing key, please give a function here. If this is given, then the dynamic boolean will be ignored as key management will be up to you. This function will be called every time we generate or verify any JWT, so please make sure it is efficient.</span>
+            },
+            validity?: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// in seconds, default is 3600 seconds. Should be &gt;= 10 &amp;&amp; &lt;= 86400000 seconds. This determines the lifetime of an access token.</span>
+            blacklisting?: <span class="hljs-built_in">boolean</span>, <span class="hljs-comment">// default is false. If you set this to true, revoking a session will cause immediate logout of the user using that session, regardless of access token's lifetime (Their access token will be invalidated). But know that this has an adverse effect on time efficiency of each getSession call.</span>
+            accessTokenPath?: <span class="hljs-built_in">string</span> <span class="hljs-comment">// default is "/". this will be the path of the access token cookie.</span>
+        },
+        refreshToken: {
+            validity?: <span class="hljs-built_in">number</span>, <span class="hljs-comment">// in hours, default is 2400 (100 days). Should be &gt;= 1 hour &amp;&amp; &lt;= 365 * 24 hours. This determines how long a refresh token is alive for. So if your user is inactive for these many hours, they will be logged out.</span>
+            removalCronjobInterval?: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// in the same style as of crontab, but with an extra seconds field as well. Default is "0 0 0 1-31/7 * *" - every 7th day of the month from 1 through 31. Defines how often the cronjob that removes expired sessions from the db should run.</span>
+            renewTokenPath: <span class="hljs-built_in">string</span> <span class="hljs-comment">// this is the API path that needs to be called for refreshing a session. This needs to be a POST API. An example value is "/api/refreshtoken". This will also be the path of the refresh token cookie.</span>
+        },
+        enableAntiCsrf?: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// default is true. When set to true, an anti-csrf token will be sent in header during create/refresh session function calls. if set to false, anti-csrf token will not be generated and if any value passed in header as anti-csrf token, that will be ignored. we strongly recommend to set this value to true. </span>
+    },
+    logging?: {
+        info?: <span class="hljs-function">(<span class="hljs-params">info: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>, <span class="hljs-comment">// default undefined. This function, if provided, will be called for info logging purposes</span>
+        error?: <span class="hljs-function">(<span class="hljs-params">err: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-comment">// default undefined. This function, if provided, will be called for error logging purposes</span>
+    },
+    cookie: {
+        domain: <span class="hljs-built_in">string</span>, <span class="hljs-comment">// this is the domain to set for all the cookies. For example, "supertokens.io" The path for all cookies except the refresh token will be "/"</span>
+        secure?: <span class="hljs-built_in">boolean</span> <span class="hljs-comment">// default true. Sets if the cookies are secure or not. Ideally, this value should be true in production mode.</span>
+    }
+}
+</code></pre>
+<p>To see how to use this object, please refer to the <a href="usage-with-express/initialisation#example-code">Init &amp; Imports</a> section.</p>
+<h2><a class="anchor" aria-hidden="true" id="development-vs-production"></a><a href="#development-vs-production" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Development vs Production</h2>
+<ul>
+<li>If your development mode does not support <code>https</code>, please be sure to set the <code>secure</code> option to <code>false</code>. Otherwise your access and refresh tokens will not be sent.</li>
+<li>In production, we highly recommend that you use <code>https</code> everywhere. In fact, you should redirect all <code>http</code> requests to use <code>https</code> as well!</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/supertokens-website/docs/next/backend/jwt-key-rotation"><span class="arrow-prev">← </span><span>JWT Signing key rotation</span></a><a class="docs-next button" href="/supertokens-website/docs/next/backend/api-reference"><span>API Reference</span><span class="arrow-next"> →</span></a></div></div></div></div></div></body></html>
