@@ -73,7 +73,7 @@ SuperTokensRequest.init(<span class="hljs-string">"refreshTokenUrl"</span>, SESS
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doAPICalls</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">let</span> postData = { ... };
-        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, postData });
+        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, <span class="hljs-attr">data</span>: postData });
         <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> response.data;
         <span class="hljs-keyword">let</span> someField = data.someField;
     } <span class="hljs-keyword">catch</span> (err) {
@@ -108,7 +108,7 @@ SuperTokensRequest.init(<span class="hljs-string">"refreshTokenUrl"</span>, SESS
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doAPICalls</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">let</span> postData = { ... };
-        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> SuperTokensRequest.axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, postData });
+        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> SuperTokensRequest.axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, <span class="hljs-attr">data</span>: postData });
         <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> response.data;
         <span class="hljs-keyword">let</span> someField = data.someField;
     } <span class="hljs-keyword">catch</span> (err) {

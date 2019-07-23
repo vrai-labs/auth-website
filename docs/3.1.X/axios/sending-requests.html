@@ -77,7 +77,7 @@ SuperTokensRequest.makeSuper(axios);
     SuperTokensRequest.init(<span class="hljs-string">"refreshTokenUrl"</span>, SESSION_EXPIRED_STATUS_CODE);
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">let</span> postData = { ... };
-        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, postData });
+        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, <span class="hljs-attr">data</span>: postData });
         <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> response.data;
         <span class="hljs-keyword">let</span> someField = data.someField;
     } <span class="hljs-keyword">catch</span> (err) {
@@ -110,7 +110,7 @@ SuperTokensRequest.makeSuper(axios);
     SuperTokensRequest.init(<span class="hljs-string">"refreshTokenUrl"</span>, SESSION_EXPIRED_STATUS_CODE)
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">let</span> postData = { ... };
-        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> SuperTokensRequest.axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, postData });
+        <span class="hljs-keyword">let</span> response = <span class="hljs-keyword">await</span> SuperTokensRequest.axios({<span class="hljs-attr">url</span>: <span class="hljs-string">"someAPI"</span>, <span class="hljs-attr">method</span>: <span class="hljs-string">"post"</span>, <span class="hljs-attr">data</span>: postData });
         <span class="hljs-keyword">let</span> data = <span class="hljs-keyword">await</span> response.data;
         <span class="hljs-keyword">let</span> someField = data.someField;
     } <span class="hljs-keyword">catch</span> (err) {
