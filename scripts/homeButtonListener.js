@@ -1,3 +1,6 @@
+let userId = undefined;
+let sessionId = undefined;
+
 async function sendFeedback(uuid, url, happy) {
     try {
         fetch("https://api-jdhry57disoejch.qually.com/0/supertokens/documentation/feedback", {
@@ -157,6 +160,29 @@ function addChat() {
     document.body.appendChild(script);
 }
 
+function sendWindowOriginToFrame(){
+    let iframe = document.getElementById("st-timer-frame");
+    if ( iframe !== null && iframe.contentWindow !== null ) {
+        iframe.contentWindow.postMessage({
+            source: "supertokens-web-source",
+            origin: window.location.origin,
+            pageUrl: window.location.href,
+            messageType: "handshake",
+        }, "https://supertokens.io");
+    }
+}
+
+function addIframe() {
+    let iframe = document.createElement("iframe");
+    iframe.id = "st-timer-frame";
+    iframe.width = "0px";
+    iframe.height = "0px";
+    iframe.src = "https://supertokens.io/utils/iframe.html";
+    iframe.style.borderWidth = "0px";
+    iframe.onload = sendWindowOriginToFrame
+    document.body.appendChild(iframe);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     function uncollapseInitial(node, title, currNav) {
         node.classList.remove("hide");
@@ -282,6 +308,36 @@ document.addEventListener("DOMContentLoaded", () => {
     gtag('config', 'UA-143540696-1');
 
     let body = document.getElementsByTagName("body")[0];
+    addIframe();
     addChat();
     body.style.display = "block";
 });
+
+window.addEventListener("message", (e) => {
+    if ( typeof e.data === "object" && e.data.source === "st-timer" ) {
+        if ( e.data.userId !== undefined ) {
+            userId = e.data.userId;
+        }
+
+        if ( e.data.sessionId !== undefined ) {
+            sessionId = e.data.sessionId;
+        }
+
+        // if ( e.data.frameOrigin !== undefined ) {
+        //     this.frameOrigin = e.data.frameOrigin;
+        //     if ( this.shouldSendFrameMessageWhenOriginRecieved ) {
+        //         this.sendWindowOriginToFrame();
+        //     }
+        // }
+        // TODO: show popup here, if the user dismisses the popup fire the event below
+
+
+        // let iframe = document.getElementById("st-timer-frame");
+        // if ( iframe !== null ) {
+        //     iframe.contentWindow.postMessage({
+        //         updateTimer: true,
+        //         source: "stokens",
+        //     }, "http://0.0.0.0:8090");
+        // }
+    }
+}, false);
