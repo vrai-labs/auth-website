@@ -133,7 +133,7 @@ function addChat() {
     let code = `
     var $zoho = $zoho || {};
     $zoho.salesiq = $zoho.salesiq || {
-        widgetcode: "761a7a4dde9ad5fec41bd464091af58c8d3e0bb03737574290533a8b609bdbcc4b288258e0dbf601553afd01b0e28e58",
+        widgetcode: "761a7a4dde9ad5fec41bd464091af58c274a6245df82c91814d08ccbeb1fe2bf4b288258e0dbf601553afd01b0e28e58",
         values: {},
         ready: function() {}
     };
@@ -282,6 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
     gtag('config', 'UA-143540696-1');
 
     let body = document.getElementsByTagName("body")[0];
-    // addChat();
+    addChat();
     body.style.display = "block";
 });
