@@ -6,8 +6,13 @@ let viewAppearedEventType = "View Appeared"
 let analyticsMessageType = "analytics";
 let webSource = "supertokens-web-source";
 let iframeId = "st-timer-frame";
-let blockedIp = [
-    "49.36.0.143",
+const blockedUserIds = [
+    "ST1566567977207yfvepU", // r
+    "ST1566568839844eyRqkU", // b
+    "ST1566799601658ljXWFU", // j
+    "ST1566566094822uKpOuU", // n
+    "ST1566558830508GAYlhU", // n 0.0.0.0
+    "ST1566395222245ZLWomU", // n localhost
 ]
 
 
@@ -168,7 +173,7 @@ function feedbackSelected(happy) {
 
 function goToGithub() {
     window.open(
-        'https://github.com/supertokens/supertokens-website',
+        getGithubUrl(),
         '_blank'
     );
 }
@@ -257,44 +262,37 @@ function addFeedbackButtons() {
 }
 
 function addChat() {
-    fetch("https://api-jdhry57disoejch.qually.com/0/supertokens/ip", {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            "api-version": "0",
-        },
-    })
-        .then(response => response.json())
-        .then(response => {
-            let ip = response.ip;
-            if ( blockedIp.indexOf(ip) === -1 ) {
-                let code = `
-                var $zoho = $zoho || {};
-                $zoho.salesiq = $zoho.salesiq || {
-                    widgetcode: "efafccf9d6d7d27460a05d4a76361143d076be81031a0c995358044f0cc8b3841a2010ab7b6727677d37b27582c0e9c4",
-                    values: {},
-                    ready: function() {}
-                };
-                var d = document;
-                s = d.createElement("script");
-                s.type = "text/javascript";
-                s.id = "zsiqscript";
-                s.defer = true;
-                s.src = "https://salesiq.zoho.com/widget";
-                t = d.getElementsByTagName("script")[0];
-                t.parentNode.insertBefore(s, t);
-                `
+    let code = `
+    var $zoho = $zoho || {};
+    $zoho.salesiq = $zoho.salesiq || {
+        widgetcode: "efafccf9d6d7d27460a05d4a76361143d076be81031a0c995358044f0cc8b3841a2010ab7b6727677d37b27582c0e9c4",
+        values: {},
+        ready: function() {}
+    };
+    var d = document;
+    s = d.createElement("script");
+    s.type = "text/javascript";
+    s.id = "zsiqscript";
+    s.defer = true;
+    s.src = "https://salesiq.zoho.com/widget";
+    t = d.getElementsByTagName("script")[0];
+    t.parentNode.insertBefore(s, t);
+    `
 
-                let zohodiv = document.createElement("div");
-                zohodiv.id = "zsiqwidget";
-                document.body.appendChild(zohodiv);
+    let zohodiv = document.createElement("div");
+    zohodiv.id = "zsiqwidget";
+    document.body.appendChild(zohodiv);
 
-                let script = document.createElement("script");
-                script.type = "text/javascript";
-                script.text = code;
-                document.body.appendChild(script);
-            }
-        });
+    let script = document.createElement("script");
+    script.type = "text/javascript";
+    script.text = code;
+    document.body.appendChild(script);
+}
+
+function addChatIfRequired() {
+    if ( blockedUserIds.indexOf(userIdFromFrame) === -1 && !window.location.origin.includes("test.supertokens.io") ) {
+        addChat();
+    }
 }
 
 function sendWindowOriginToFrame(){
@@ -305,13 +303,13 @@ function sendWindowOriginToFrame(){
             origin: window.location.origin,
             pageUrl: window.location.href,
             messageType: "handshake",
-        }, "https://supertokens.io");
+        }, iframeOrigin);
     }
 }
 
 function addIframe() {
     let iframe = document.createElement("iframe");
-    iframe.id = "st-timer-frame";
+    iframe.id = iframeId;
     iframe.width = "0px";
     iframe.height = "0px";
     iframe.src = `${iframeOrigin}/utils/iframe.html`;
@@ -442,15 +440,57 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     addFeedbackButtons();
 
+    //---- make additional information part
+    let additionalInfo = document.getElementsByClassName("additionalInformation");
+    for (let i = 0; i < additionalInfo.length; i++) {
+        let splittedCurrPath = window.location.pathname.split("/");
+        let imgPath = ["", splittedCurrPath[1], "img", "plus.png"].join("/");
+        let curr = additionalInfo[i];
+        let time = curr.getAttribute("time");
+        let text = curr.getAttribute("text");
+        if (time === null && text === null) {
+            continue;
+        }
+        let buttonText = "";
+        if (text !== null) {
+            buttonText = text;
+        } else {
+            buttonText = time === "1" ? "Additional 1 min read" : "Additional " + time + " mins read";
+        }
+        let children = curr.innerHTML.trim();
+        let randomID = "additionalInfoRandomId" + i;
+        let html = `
+        <div class="${randomID}">
+            <div style="display: flex">
+            <div onClick=clickedAdditionalInfo("${randomID}")>
+                <h2 style="color: #ffffff;
+                    padding-top: 0px; margin-top: 0px;
+                    background-color: #333333;
+                    display: flex; cursor: pointer;
+                    align-items: center; justify-content: flex-start;
+                    padding-left: 10px; padding-right: 10px; border-radius: 6px;">
+                    <img src="${imgPath}" style="width: 12px; margin-right: 10px"></img>
+                        ${buttonText}
+                </h2>
+            </div>
+            </div>
+            <div style="display: none">
+                ${children}
+            </div>
+        </div>
+        `;
+        curr.innerHTML = html;
+    }
+    //-------------
+
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'UA-143540696-1');
-
+    
     let body = document.getElementsByTagName("body")[0];
     addIframe();
-    addChat();
     body.style.display = "block";
 });
 
@@ -458,7 +498,9 @@ window.addEventListener("message", (e) => {
     if ( typeof e.data === "object" && e.data.source === "st-timer" ) {
         if ( e.data.userId !== undefined ) {
             userIdFromFrame = e.data.userId;
+            addChatIfRequired();
         }
+
         if ( e.data.sessionId !== undefined ) {
             sessionId = e.data.sessionId;
         }
@@ -470,3 +512,19 @@ window.addEventListener("message", (e) => {
         }
     }
 }, false);
+
+clickedAdditionalInfo = (randomId) => {
+    let element = document.getElementsByClassName(randomId)[0];
+    let isCollapsed = element.children[1].style.display === "none";
+    if (!isCollapsed) {
+        let splittedCurrPath = window.location.pathname.split("/");
+        let imgPath = ["", splittedCurrPath[1], "img", "plus.png"].join("/");
+        element.children[0].children[0].children[0].children[0].src = imgPath;
+        element.children[1].style.display = "none";
+    } else {
+        let splittedCurrPath = window.location.pathname.split("/");
+        let imgPath = ["", splittedCurrPath[1], "img", "minus.png"].join("/");
+        element.children[0].children[0].children[0].children[0].src = imgPath;
+        element.children[1].style.display = "block";
+    }
+}
