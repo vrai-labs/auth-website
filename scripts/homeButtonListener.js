@@ -13,6 +13,7 @@ const blockedUserIds = [
     "ST1566566094822uKpOuU", // n
     "ST1566558830508GAYlhU", // n 0.0.0.0
     "ST1566395222245ZLWomU", // n localhost
+    "ST1566999771277eNuDcU", // a
 ]
 
 
