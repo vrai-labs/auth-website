@@ -26,8 +26,8 @@ async function sendFeedback(uuid, url, happy) {
                 "api-version": "0",
             },
             body: JSON.stringify({
-                url,
-                userId: uuid,
+                url: `${url}/latest-version=${getLatestVersion()}`,
+                userId: userIdFromFrame,
                 helpful: happy,
             }),
         });
