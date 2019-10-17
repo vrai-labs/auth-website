@@ -45,9 +45,18 @@ function isMobileDevice() {
 }
 
 function showScheduleCallModal() {
+    if (isMobileDevice()) {
+        return;
+    }
     let modal = document.getElementById("schedule-call-modal");
     if ( modal !== null ) {
-        modal.style.display = "block";
+        let splittedCurrPath = window.location.pathname.split("/");
+        let openedImagePath = ["", splittedCurrPath[1], "img", "scheduleCallOpen.png"].join("/");
+        let scheduleCallIcon = document.getElementById("schedule-call-icon");
+        if (scheduleCallIcon !== null) {
+            scheduleCallIcon.src = openedImagePath;
+        }
+        modal.classList.add("schedule-call-modal-open");
     }
     let iframe = document.getElementById(iframeId);
     if ( iframe !== null && iframe.contentWindow !== null ) {
@@ -65,9 +74,18 @@ function showScheduleCallModal() {
 }
 
 function dismissScheduleCallModal() {
+    if (isMobileDevice()) {
+        return;
+    }
     let modal = document.getElementById("schedule-call-modal");
     if ( modal !== null ) {
-        modal.style.display = "none";
+        let splittedCurrPath = window.location.pathname.split("/");
+        let closedImagePath = ["", splittedCurrPath[1], "img", "scheduleCallClosed.png"].join("/");
+        let scheduleCallIcon = document.getElementById("schedule-call-icon");
+        if (scheduleCallIcon !== null) {
+            scheduleCallIcon.src = closedImagePath;
+        }
+        modal.classList.remove("schedule-call-modal-open");
     }
 }
 
@@ -90,6 +108,9 @@ function onScheduleCallClicked() {
 }
 
 function onCloseScheduleCallClicked() {
+    if (isMobileDevice()) {
+        return;
+    }
     dismissScheduleCallModal();
     let iframe = document.getElementById(iframeId);
     if ( iframe !== null && iframe.contentWindow !== null ) {
@@ -107,46 +128,81 @@ function onCloseScheduleCallClicked() {
     }
 }
 
+function onScheduleModalImageClicked() {
+    if (isMobileDevice()) {
+        return;
+    }
+    let scheduleCallModal = document.getElementById("schedule-call-modal");
+    if (scheduleCallModal !== null) {
+        let classList = scheduleCallModal.classList;
+        let open = classList.contains("schedule-call-modal-open");
+        if (open) {
+            onCloseScheduleCallClicked();
+        } else {
+            showScheduleCallModal();
+        }
+    }
+}
+
 function addScheduleCallModal() {
+    if (isMobileDevice()) {
+        return;
+    }
     let splittedCurrPath = window.location.pathname.split("/");
-    let imgPath = ["", splittedCurrPath[1], "img", "scheduleCallPopupEmoji.png"].join("/");
+    let emojiPath = ["", splittedCurrPath[1], "img", "scheduleCallPopupEmoji.png"].join("/");
+    let closedImagePath = ["", splittedCurrPath[1], "img", "scheduleCallClosed.png"].join("/");
     let modal = `
         <div
             id="schedule-call-modal"
-            style="display: none"
-            class="modal">
-            <div
-                style="display: flex; height: 100%; width: 100%; align-items: center; justify-content: center">
+            class="schedule-call-modal">
+            <div style="width: 100%, height: 100%; background-color: transparent">
                 <div
-                    style="box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; padding-top: 40px; padding-bottom: 40px; padding-right: 40px; padding-left: 40px; background-color: #222222; border-radius: 6px; width: ${isMobileDevice() ? "calc(100vw - 40px)" : "45vw"}; display: flex; flex-direction: column;">
-                        <div
-                            style="display: flex; flex-direction: row; justify-content: space-between; -webkit-justify-content: space-between; align-items: center">
-                            <div
-                                style="color: #ffffff; font-weight: bold; font-size: 20px">
-                                Need help with implementation?
-                            </div>
-                            <div
-                                onClick="onCloseScheduleCallClicked()"
-                                style="color: #ffffff; text-decoration: underline; font-size: 18px; cursor: pointer">
-                            Close
-                            </div>
-                        </div>
-                        <div
-                            style="font-size: 16px; color: #dddddd; margin-top: 30px; width: 100%">
-                            Schedule a chat or a free 20 minutes call with us to get your questions answered and learn more about SuperTokens <span><img src="${imgPath}" style="height: 18px; width: 18px"></img></span>
-                        </div>
-                        <div
-                            onclick="onScheduleCallClicked()"
-                            style="display: flex; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; padding-right: 20px; padding-left: 20px; padding-top: 9px; padding-bottom: 9px; border-radius: 6px; background-color: #dddddd; align-self: flex-start; cursor: pointer; margin-top: 30px; font-weight: bold; color: #222222;">
-                            Schedule a Call
-                        </div>
+                    style="display: flex; align-items: center;">
+                    <div
+                        class="schedule-call-child"
+                        style="font-size: 18px; line-height: 26px; color: #dddddd; display: flex">
+                        Need help with anything?
+                    </div>
+                    <img
+                        onclick="onScheduleModalImageClicked()"
+                        id="schedule-call-icon"
+                        style="width: 16px; height: 15px; margin-left: 12px; cursor: pointer"
+                        src="${closedImagePath}"
+                        />
+                </div>
+
+                <div
+                    style="font-size: 16px; line-height: 20px; color: #dddddd; display: flex; margin-top: 20px"
+                    class="schedule-call-child">
+                    Schedule a 20 minutes call.
+                </div>
+
+                <div
+                    style="font-size: 16px; line-height: 20px; color: #dddddd; display: flex; margin-top: 10px"
+                    class="schedule-call-child">
+                    It will get your questions answered without any cost.
+                </div>
+
+                <div
+                    onclick="onScheduleCallClicked()"
+                    class="schedule-call-child"
+                    style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px; padding-left: 35px; padding-right: 35px; display: flex;
+                        align-items: center; background-color: #dddddd; justify-content: center; border-radius: 6px; cursor: pointer">
+                    <div
+                        style="color: #222222; font-weight: 600">
+                        Schedule a Call
+                    </div>
+                    <img
+                        style="width: 18px; height: 18px; margin-left: 10px"
+                        src="${emojiPath}"
+                        />
                 </div>
             </div>
         </div>
     `;
-    let container = document.getElementsByClassName("container mainContainer")[0];
+    let container = document.getElementsByTagName("body")[0];
     if ( container !== null ) {
-        container.innerHTML = container.innerHTML + modal;
+        container.insertAdjacentHTML("beforeend", modal);
     }
 }
 
