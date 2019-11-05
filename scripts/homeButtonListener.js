@@ -151,6 +151,7 @@ function addScheduleCallModal() {
     let splittedCurrPath = window.location.pathname.split("/");
     let emojiPath = ["", splittedCurrPath[1], "img", "scheduleCallPopupEmoji.png"].join("/");
     let closedImagePath = ["", splittedCurrPath[1], "img", "scheduleCallClosed.png"].join("/");
+    
     let modal = `
         <div
             id="schedule-call-modal"
