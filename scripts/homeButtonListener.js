@@ -154,31 +154,32 @@ function addScheduleCallModal() {
     let modal = `
         <div
             id="schedule-call-modal"
-            class="schedule-call-modal">
+            class="schedule-call-modal"
+            style="background-color: #d6eeff">
             <div style="width: 100%, height: 100%; background-color: transparent">
                 <div
-                    style="display: flex; align-items: center;">
+                    onclick="onScheduleModalImageClicked()"
+                    style="display: flex; align-items: center; cursor: pointer">
                     <div
                         class="schedule-call-child"
-                        style="font-size: 18px; line-height: 26px; color: #dddddd; display: flex">
+                        style="font-size: 18px; line-height: 26px; color: #222222; display: flex; font-weight: 600">
                         Need help with anything?
                     </div>
                     <img
-                        onclick="onScheduleModalImageClicked()"
                         id="schedule-call-icon"
-                        style="width: 16px; height: 15px; margin-left: 12px; cursor: pointer"
+                        style="width: 16px; height: 15px; margin-left: 12px;"
                         src="${closedImagePath}"
                         />
                 </div>
 
                 <div
-                    style="font-size: 16px; line-height: 20px; color: #dddddd; display: flex; margin-top: 20px"
+                    style="font-size: 16px; line-height: 20px; color: #222222; display: flex; margin-top: 20px"
                     class="schedule-call-child">
                     Schedule a 20 minutes call.
                 </div>
 
                 <div
-                    style="font-size: 16px; line-height: 20px; color: #dddddd; display: flex; margin-top: 10px"
+                    style="font-size: 16px; line-height: 20px; color: #222222; display: flex; margin-top: 10px"
                     class="schedule-call-child">
                     It will get your questions answered without any cost.
                 </div>
@@ -187,9 +188,9 @@ function addScheduleCallModal() {
                     onclick="onScheduleCallClicked()"
                     class="schedule-call-child"
                     style="margin-top: 20px; padding-top: 10px; padding-bottom: 10px; padding-left: 35px; padding-right: 35px; display: flex;
-                        align-items: center; background-color: #dddddd; justify-content: center; border-radius: 6px; cursor: pointer">
+                        align-items: center; background-color: #0a84ff; justify-content: center; border-radius: 12px; cursor: pointer">
                     <div
-                        style="color: #222222; font-weight: 600">
+                        style="color: #ffffff; font-weight: bold">
                         Schedule a Call
                     </div>
                     <img

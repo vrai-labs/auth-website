@@ -91,7 +91,7 @@ SuperTokensRequest.init(<span class="hljs-string">"/refreshsession"</span>, <spa
 <span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> ApolloClient({
     <span class="hljs-attr">link</span>: <span class="hljs-keyword">new</span> HttpLink({
         <span class="hljs-attr">uri</span>: <span class="hljs-string">"/graphql"</span>,  <span class="hljs-comment">// change this depending on your path</span>
-        fetch: <span class="hljs-function">(<span class="hljs-params">uri, options</span>) =&gt;</span> {
+        <span class="hljs-attr">fetch</span>: <span class="hljs-function">(<span class="hljs-params">uri, options</span>) =&gt;</span> {
             <span class="hljs-keyword">return</span> SuperTokensRequest.fetch(uri, options);
         }
     }),
