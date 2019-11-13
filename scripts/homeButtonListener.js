@@ -450,15 +450,15 @@ function onScheduleCallFormCloseClicked() {
     closeScheduleCallForm();
 }
 
+{/* <div
+        onclick="onScheduleCallFormCloseClicked()"
+        style="color: #dddddd; text-decoration: underline; font-size: 16px; line-height: 25px; align-self: flex-end;
+            cursor: pointer">
+        Close
+    </div> */}
+
 function getInfoFormContent() {
     return `
-        <div
-            onclick="onScheduleCallFormCloseClicked()"
-            style="color: #dddddd; text-decoration: underline; font-size: 16px; line-height: 25px; align-self: flex-end;
-                cursor: pointer">
-            Close
-        </div>
-
         <div
             style="font-size: 16px; line-height: 30px; color: #dddddd; font-weight: bold">
             Name:
@@ -691,7 +691,8 @@ function addInfoForm() {
                     id="docs-schedule-call-form-content"
                     style="background-color: #222222; padding-top: 20px; padding-bottom: 20px; padding-left: 40px; padding-right: 40px;
                         display: flex; flex-direction: column; border-radius: 12px; width: 36vw; border-box; -moz-box-sizing: border-box;
-                        -webkit-box-sizing: border-box; height: calc(100% - 20px); overflow: scroll; margin-top: 10px; margin-bottom: 10px">
+                        -webkit-box-sizing: border-box; height: calc(100% - 20px); overflow: scroll; margin-top: 10px; border-bottom-right-radius: 0px;
+                        border-bottom-left-radius: 0px">
                         ${getInfoFormContent()}
                 </div>
         </div>
