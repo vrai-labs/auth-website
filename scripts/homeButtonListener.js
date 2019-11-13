@@ -5,6 +5,7 @@ let iframeOrigin = "https://supertokens.io";
 let buttonClickEventType = "Button Clicked";
 let viewAppearedEventType = "View Appeared";
 let analyticsMessageType = "analytics";
+let infoFormFilledMessageType = "st-info-form-filled";
 let webSource = "supertokens-web-source";
 let iframeId = "st-timer-frame";
 let isInfoFormSubmitting = false;
@@ -335,7 +336,13 @@ function showScheduleFormSuccess() {
 function postScheduleCallSubmit(success) {
     // closeScheduleCallForm();
     if (success) {
-        window.localStorage.setItem(infoFormFilledStorageKey, "true");
+        let iframe = document.getElementById("st-timer-frame");
+        if (iframe !== null) {
+            iframe.contentWindow.postMessage({
+                source: webSource,
+                messageType: infoFormFilledMessageType,
+            }, iframeOrigin);
+        }
         let interestedButton = document.getElementById("schedule-call-form-interested");
         if (interestedButton !== null) {
             interestedButton.innerHTML = "Schedule a call";
@@ -668,10 +675,6 @@ function hasFilledScheduleCallForm() {
 
 function addInfoForm() {
     if (isMobileDevice()) {
-        return;
-    }
-
-    if (hasFilledScheduleCallForm()) {
         return;
     }
 
