@@ -1,11 +1,14 @@
 let userIdFromFrame = undefined;
 let sessionId = undefined;
+let infoFormFilledStorageKey = "st-info-filled";
 let iframeOrigin = "https://supertokens.io";
 let buttonClickEventType = "Button Clicked";
 let viewAppearedEventType = "View Appeared"
 let analyticsMessageType = "analytics";
 let webSource = "supertokens-web-source";
 let iframeId = "st-timer-frame";
+let isInfoFormSubmitting = false;
+
 const blockedUserIds = [
     "ST1566567977207yfvepU", // r
     "ST1566568839844eyRqkU", // b
@@ -42,6 +45,52 @@ function isMobileDevice() {
         return true;
     }
     return false;
+}
+
+function sendViewAppearedEvent(target, additionalData) {
+    let timestamp = new Date().getTime();
+    let eventName = "View Appeared";
+    let pageUrl = window.location.href;
+    let webSource = "supertokens-web-source";
+    let analyticsMessageType = "analytics";
+
+    let iframe = document.getElementById("st-timer-frame");
+    if ( iframe !== null && iframe.contentWindow !== null ) {
+        iframe.contentWindow.postMessage({
+            source: webSource,
+            messageType: analyticsMessageType,
+            eventName,
+            userId: userIdFromFrame,
+            sessionId,
+            timestamp,
+            pageUrl,
+            target,
+            additionalData,
+        }, iframeOrigin);
+    }
+}
+
+function sendButtonClickedEvent(target, additionalData) {
+    let timestamp = new Date().getTime();
+    let eventName = "Button Clicked";
+    let pageUrl = window.location.href;
+    let webSource = "supertokens-web-source";
+    let analyticsMessageType = "analytics";
+
+    let iframe = document.getElementById("st-timer-frame");
+    if ( iframe !== null && iframe.contentWindow !== null ) {
+        iframe.contentWindow.postMessage({
+            source: webSource,
+            messageType: analyticsMessageType,
+            eventName,
+            userId: userIdFromFrame,
+            sessionId,
+            timestamp,
+            pageUrl,
+            target,
+            additionalData,
+        }, iframeOrigin);
+    }
 }
 
 function showScheduleCallModal() {
@@ -206,6 +255,497 @@ function addScheduleCallModal() {
     let container = document.getElementsByTagName("body")[0];
     if ( container !== null ) {
         container.insertAdjacentHTML("beforeend", modal);
+    }
+}
+
+function getScheduleCallPopupContent(bgColor, force) {
+    let splittedCurrPath = window.location.pathname.split("/");
+    let whatsappImagePath = ["", splittedCurrPath[1], "img", "scheduleCallWhatsapp.png"].join("/");
+    return `
+        <div
+            style="display: flex; flex-direction: column; padding-top: 20px; padding-bottom: 20px; box-sizing: border-box; -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;">
+            <div
+                style="color: #ffffff; font-size: 20px; line-height: 24px; margin-right: 20px; margin-left: 20px; display: flex;
+                    flex-direction: column; font-weight: bold">
+                        Let's discuss these benefits in detail!
+            </div>
+
+            <div
+                id="schedule-call-form-interested"
+                onClick="onScheduleCallClicked()"
+                style="margin-top: 20px; margin-right: 20px; margin-left: 20px; display: flex; padding-top: 6px; padding-bottom: 6px;
+                    align-items: center; justify-content: center; border-radius: 6px; color: #ffffff; font-size: 18px; font-weight: bold;
+                    line-height: 23px; background-color: #0a84ff; cursor: pointer">
+                        ${"Schedule a call"}
+            </div>
+
+            <div
+                style="display: flex; justify-content: center; flex: 1; position: relative; align-items: center; margin-top: 20px">
+                    <div
+                        style="height: 1px; background-color: #141414; width: 100%">
+                    </div>
+                    <div
+                        style="color: #ffffff; position: absolute; background-color: ${bgColor}; padding-bottom: 2px; padding-left: 10px;
+                            padding-right: 10px">
+                        or
+                    </div>
+            </div>
+
+            <div
+                style="display: flex; flex-direction: row; align-items: center; width: 100%; margin-top: 20px; padding-right: 20px;
+                    padding-left: 20px">
+                    <img
+                        style="height: 26px; width: 26px"
+                        src="${whatsappImagePath}"/>
+                    
+                    <div
+                        style="margin-left: 20px; font-size: 18px; line-height: 24px; color: #ffffff">
+                        Whatsapp "SuperTokens" on 
+                        <span
+                            style="color: #ffffff; font-weight: bold">
+                            +91 7021000012
+                        </span>
+                    </div>
+            </div>
+        </div>
+    `;
+}
+
+function showScheduleFormSuccess() {
+    let disclaimer = document.getElementById("docs-info-form-disclaimer");
+    if (disclaimer !== null) {
+        disclaimer.style.display = "none";
+    }
+    let formContainer = document.getElementById("docs-schedule-call-form-content");
+    if (formContainer !== null) {
+        formContainer.style.height = null;
+        formContainer.innerHTML = `
+            <div
+                onclick="onScheduleCallFormCloseClicked()"
+                style="color: #dddddd; text-decoration: underline; font-size: 18px; line-height: 25px; align-self: flex-end;
+                    cursor: pointer">
+                Close
+            </div>
+            ${getScheduleCallPopupContent("#222222", true)}
+        `;
+    }
+}
+
+function postScheduleCallSubmit(success) {
+    // closeScheduleCallForm();
+    if (success) {
+        window.localStorage.setItem(infoFormFilledStorageKey, "true");
+        let interestedButton = document.getElementById("schedule-call-form-interested");
+        if (interestedButton !== null) {
+            interestedButton.innerHTML = "Schedule a call";
+        }
+    }
+
+    showScheduleFormSuccess();
+}
+
+function onSubmitPressed() {
+    let submitButton = document.getElementById("docs-schedule-call-submit");
+    if (submitButton !== null) {
+        if (submitButton.className !== "schedule-call-email-enabled") {
+            return;
+        }
+
+        if (isInfoFormSubmitting) {
+            return;
+        }
+
+        isInfoFormSubmitting = true;
+
+        let howYouFoundUsRadios = document.getElementsByName("how-find");
+        let whyUseSupertokensRadios = document.getElementsByName("use-for");
+        let emailInput = document.getElementById("docs-schedule-call-form-email");
+        let nameInput = document.getElementById("docs-schedule-call-form-name");
+
+        let selectedHowOption = "";
+        let selectedWhyOption = "";
+        let email = "";
+        let name = "";
+
+        for (let i = 0; i < howYouFoundUsRadios.length; i++) {
+            let current = howYouFoundUsRadios[i];
+            if (current.checked) {
+                if (current.id === "how-find-other") {
+                    selectedHowOption = current.value + " | ";
+                    let otherInput = document.getElementById("docs-schedule-call-form-how-other");
+                    if (otherInput !== null) {
+                        selectedHowOption += otherInput.value;
+                    }
+                } else {
+                    selectedHowOption = current.value;
+                }
+                break;
+            }
+        }
+    
+        for (let i = 0; i < whyUseSupertokensRadios.length; i++) {
+            let current = whyUseSupertokensRadios[i];
+            if (current.checked) {
+                selectedWhyOption = current.value;
+                break;
+            }
+        }
+
+        if (emailInput !== null) {
+            email = emailInput.value;
+        }
+
+        if (nameInput !== null) {
+            name = nameInput.value;
+        }
+
+        let payload = {
+            userId: userIdFromFrame,
+            sessionId,
+            email,
+            how: selectedHowOption,
+            who: selectedWhyOption, // API uses who as the key
+            pageURL: window.location.href,
+            name,
+        }
+
+        if (window.location.origin.includes("localhost") || window.location.origin.includes("0.0.0.0")) {
+            isInfoFormSubmitting = false;
+            postScheduleCallSubmit(false);
+            return;
+        }
+
+        let apiVersion = "1";
+        let url = "https://api.supertokens.io/0/website/visitorinfo";
+
+        sendButtonClickedEvent("docs-visitor-info-form-submit", {
+            email,
+            how: selectedHowOption,
+            why: selectedWhyOption,
+            name,
+        })
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+                "api-version": apiVersion,
+            }
+        })
+            .then(() => {
+                isInfoFormSubmitting = false;
+                postScheduleCallSubmit(true);
+            })
+            .catch(() => {
+                isInfoFormSubmitting = false;
+                postScheduleCallSubmit(false);
+            })
+    } 
+}
+
+function onScheduleCallFormCloseClicked() {
+    sendButtonClickedEvent("docs-visitor-info-form-close");
+    closeScheduleCallForm();
+}
+
+function getInfoFormContent() {
+    return `
+        <div
+            onclick="onScheduleCallFormCloseClicked()"
+            style="color: #dddddd; text-decoration: underline; font-size: 16px; line-height: 25px; align-self: flex-end;
+                cursor: pointer">
+            Close
+        </div>
+
+        <div
+            style="font-size: 16px; line-height: 30px; color: #dddddd; font-weight: bold">
+            Name:
+        </div>
+
+        <input
+            id="docs-schedule-call-form-name"
+            type="text"
+            placeholder="Your name"
+            style="border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; margin-top: 10px; border-radius: 12px;
+                display: flex; width: 100%; resize: none; padding-right: 20px; padding-left: 20px; padding-top: 10px;
+                padding-bottom: 10px; border-width: 0px; background-color: #444444; font-size: 14px; color: #dddddd">
+
+        <div
+            style="font-size: 16px; line-height: 30px; color: #dddddd; font-weight: bold; margin-top: 20px">
+            Email:
+        </div>
+
+        <input
+            id="docs-schedule-call-form-email"
+            type="text"
+            placeholder="Your email (work email preferred)"
+            style="border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; margin-top: 10px; border-radius: 12px;
+                display: flex; width: 100%; resize: none; padding-right: 20px; padding-left: 20px; padding-top: 10px;
+                padding-bottom: 10px; border-width: 0px; background-color: #444444; font-size: 14px; color: #dddddd">
+
+        <div
+            style="color: rgba(221,221,221,0.6); font-size: 10px; margin-top: 10px">
+                We promise not to spam this email. It will be used to give you important alerts about bug fixes to the library. Occasionally, we may ask for your feedback - with the aim of building a better solution, <span style="font-style: italic; color: rgba(221,221,221,0.6)">for you</span>
+        </div>
+
+        <div
+            style="margin-top: 20px; font-size: 16px; color: #dddddd; font-weight: bold;">
+                How did you find us?
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="how-find" id="how-find-blog" value="SuperTokens Blog post">
+            <label for="how-find-blog">SuperTokens blog post<a
+                style="margin-left: 10px; color: #007bff"
+                target="_blank"
+                href="https://supertokens.io/blog/all-you-need-to-know-about-user-session-security">See blog↗</a></label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="how-find" id="how-find-search" value="Via search">
+            <label for="how-find-search">Through a search engine</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="how-find" id="how-find-meet" value="You have met us">
+            <label for="how-find-meet">Met someone from SuperTokens team</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="how-find" id="how-find-other" value="Other">
+            <label for="how-find-other">Other</label>
+        </div>
+
+        <input
+            id="docs-schedule-call-form-how-other"
+            type="text"
+            placeholder="Please tell us how (Optional)"
+            style="border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; margin-top: 10px; border-radius: 12px;
+                display: flex; width: 100%; resize: none; padding-right: 20px; padding-left: 20px; padding-top: 10px;
+                padding-bottom: 10px; border-width: 0px; background-color: #444444; font-size: 14px; color: #dddddd;
+                display: none;">
+
+        <div
+            style="margin-top: 20px; font-size: 16px; line-height: 30px; color: #dddddd; font-weight: bold;">
+                You want to use SuperTokens for
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="use-for" id="use-for-personal" value="Personal project">
+            <label for="use-for-personal">Personal project</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="use-for" id="use-for-startup" value="A startup">
+            <label for="use-for-startup">A startup</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="use-for" id="use-for-enterprise" value="An enterprise">
+            <label for="use-for-enterprise">An enterprise</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="use-for" id="use-for-education" value="Educational purposes">
+            <label for="use-for-education">Educational purposes</label>
+        </div>
+
+        <div class="radio-item">
+            <input type="radio" name="use-for" id="use-for-private" value="Id rather not say">
+            <label for="use-for-private">I'd rather not say</label>
+        </div>
+
+        <div
+            onclick="onSubmitPressed()"
+            id="docs-schedule-call-submit"
+            class="schedule-call-email-disabled"
+            style="border-radius: 12px; padding: 10px; font-size: 16px; display: flex;
+                align-self: flex-end; padding-top: 6px; padding-bottom: 6px; margin-top: 20px">
+                Submit
+        </div>
+    `;
+}
+
+function emailHasCorrectFormat(email) {
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function enableSubmitIfRequired() {
+    let howYouFoundUsRadios = document.getElementsByName("how-find");
+    let whyUseSupertokensRadios = document.getElementsByName("use-for");
+    let emailInput = document.getElementById("docs-schedule-call-form-email");
+    let nameInput = document.getElementById("docs-schedule-call-form-name");
+
+    let isHowRadioChecked = false;
+    let isWhyRadioChecked = false;
+    let isEmailValid = false;
+    let isNameFilled = false;
+
+    for (let i = 0; i < howYouFoundUsRadios.length; i++) {
+        let current = howYouFoundUsRadios[i];
+        if (current.checked) {
+            isHowRadioChecked = true;
+            break;
+        }
+    }
+
+    for (let i = 0; i < whyUseSupertokensRadios.length; i++) {
+        let current = whyUseSupertokensRadios[i];
+        if (current.checked) {
+            isWhyRadioChecked = true;
+            break;
+        }
+    }
+
+    if (emailInput !== null && emailHasCorrectFormat(emailInput.value)) {
+        isEmailValid = true;
+    }
+
+    if (nameInput !== null && nameInput.value.trim() !== "") {
+        isNameFilled = true;
+    }
+
+    let submitButton = document.getElementById("docs-schedule-call-submit");
+
+    if (submitButton !== null) {
+        if (isHowRadioChecked && isWhyRadioChecked && isEmailValid && isNameFilled) {
+            submitButton.className = "schedule-call-email-enabled";
+        } else {
+            submitButton.className = "schedule-call-email-disabled";
+        }
+    }
+}
+
+function showScheduleCallForm() {
+    sendViewAppearedEvent("docs-visitor-info-form");
+    let form = document.getElementById("docs-schedule-call-form");
+    if (form !== null) {
+        form.style.visibility = "visible"
+    }
+}
+
+function closeScheduleCallForm() {
+    let form = document.getElementById("docs-schedule-call-form");
+    if (form !== null) {
+        form.style.visibility = "hidden"
+        let howYouFoundUsRadios = document.getElementsByName("how-find");
+        for(let i = 0; i < howYouFoundUsRadios.length; i++) {
+            let current = howYouFoundUsRadios[i];
+            current.checked = false;
+        }
+
+        let whyUseSupertokensRadios = document.getElementsByName("use-for");
+        for(let i = 0; i < whyUseSupertokensRadios.length; i++) {
+            let current = whyUseSupertokensRadios[i];
+            current.checked = false;
+        }
+
+        let otherInput = document.getElementById("docs-schedule-call-form-how-other");
+        if (otherInput !== null) {
+            otherInput.value = "";
+            otherInput.style.display = "none";
+        }
+
+        let emailInput = document.getElementById("docs-schedule-call-form-email");
+        if (emailInput !== null) {
+            emailInput.value = "";
+        }
+    }
+
+    let formContainer = document.getElementById("docs-schedule-call-form-content");
+    if (formContainer !== null) {
+        formContainer.innerHTML = getInfoFormContent();
+    }
+}
+
+function hasFilledScheduleCallForm() {
+    let isFilled = window.localStorage.getItem(infoFormFilledStorageKey);
+    return isFilled === "true";
+}
+
+function addInfoForm() {
+    if (isMobileDevice()) {
+        return;
+    }
+
+    if (hasFilledScheduleCallForm()) {
+        return;
+    }
+
+    let form = `
+        <div
+            id="docs-schedule-call-form"
+            style="box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; display: flex; flex-direction: column;
+                position: fixed; top: 0px; left: 0px; z-index: 999999999999; height: 100%; width: 100%; align-items: center;
+                justify-content: center; background-color: #000000; visibility: hidden; overflow: scroll">
+                <div
+                    id="docs-info-form-disclaimer"
+                    style="color: #ffffff; font-size: 16px; font-weight: bold; margin-top: 10px; margin-bottom: 10px;">
+                        Please fill the form below to see documentation:
+                </div>
+
+                <div
+                    id="docs-schedule-call-form-content"
+                    style="background-color: #222222; padding-top: 20px; padding-bottom: 20px; padding-left: 40px; padding-right: 40px;
+                        display: flex; flex-direction: column; border-radius: 12px; width: 36vw; border-box; -moz-box-sizing: border-box;
+                        -webkit-box-sizing: border-box; height: calc(100% - 20px); overflow: scroll; margin-top: 10px; margin-bottom: 10px">
+                        ${getInfoFormContent()}
+                </div>
+        </div>
+    `;
+
+    let container = document.getElementsByTagName("body")[0];
+    if ( container !== null ) {
+        container.insertAdjacentHTML("beforeend", form);
+    }
+
+    let howYouFoundUsRadios = document.getElementsByName("how-find");
+    for (let i = 0; i < howYouFoundUsRadios.length; i ++) {
+        let current = howYouFoundUsRadios[i];
+        current.addEventListener("change", () => {
+            if (current.checked && current.id === "how-find-other") {
+                let otherInput = document.getElementById("docs-schedule-call-form-how-other");
+                if (otherInput !== null) {
+                    otherInput.style.display = "block";
+                }
+            } else {
+                let otherInput = document.getElementById("docs-schedule-call-form-how-other");
+                if (otherInput !== null) {
+                    otherInput.style.display = "none";
+                }
+            }
+
+            if (current.checked) {
+                enableSubmitIfRequired();
+            }
+        });
+    }
+
+    let whyUseSupertokensRadios = document.getElementsByName("use-for");
+    for (let i = 0; i < whyUseSupertokensRadios.length; i++) {
+        let current = whyUseSupertokensRadios[i];
+        current.addEventListener("change", () => {
+            if (current.checked) {
+                enableSubmitIfRequired();
+            }
+        });
+    }
+
+    let emailInput = document.getElementById("docs-schedule-call-form-email");
+    if (emailInput !== null) {
+        emailInput.addEventListener("input", () => {
+            enableSubmitIfRequired();
+        });
+    }
+
+    let nameInput = document.getElementById("docs-schedule-call-form-name");
+    if (nameInput !== null) {
+        nameInput.addEventListener("input", () => {
+            enableSubmitIfRequired();
+        });
     }
 }
 
@@ -551,6 +1091,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let body = document.getElementsByTagName("body")[0];
     addIframe();
+    addInfoForm();
     body.style.display = "block";
 });
 
@@ -569,6 +1110,10 @@ window.addEventListener("message", (e) => {
             if ( e.data.showMessage ) {
                 showScheduleCallModal();
             }
+        }
+
+        if (e.data.type === "show-info-form") {
+            showScheduleCallForm();
         }
     }
 }, false);
