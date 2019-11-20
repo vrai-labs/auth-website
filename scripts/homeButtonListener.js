@@ -94,6 +94,28 @@ function sendButtonClickedEvent(target, additionalData) {
     }
 }
 
+function sendReferralEvent() {
+    let timestamp = new Date().getTime();
+    let eventName = "Referrer";
+    let pageUrl = window.location.href;
+    let webSource = "supertokens-web-source";
+    let analyticsMessageType = "analytics";
+
+    let iframe = document.getElementById("st-timer-frame");
+    if ( iframe !== null && iframe.contentWindow !== null ) {
+        iframe.contentWindow.postMessage({
+            source: webSource,
+            messageType: analyticsMessageType,
+            eventName,
+            userId: userIdFromFrame,
+            sessionId,
+            timestamp,
+            pageUrl,
+            referrer: document.referrer,
+        }, iframeOrigin);
+    }
+}
+
 function showScheduleCallModal() {
     if (isMobileDevice()) {
         return;
@@ -1108,6 +1130,7 @@ window.addEventListener("message", (e) => {
 
         if ( e.data.sessionId !== undefined ) {
             sessionId = e.data.sessionId;
+            sendReferralEvent();
         }
 
         if ( e.data.showMessage !== undefined ) {
