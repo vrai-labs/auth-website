@@ -947,6 +947,7 @@ function sendWindowOriginToFrame(){
             origin: window.location.origin,
             pageUrl: window.location.href,
             messageType: "handshake",
+            referrer: document.referrer,
         }, iframeOrigin);
     }
 }
