@@ -340,6 +340,12 @@ function showScheduleFormSuccess() {
     if (disclaimer !== null) {
         disclaimer.style.display = "none";
     }
+
+    let closeButton = document.getElementById("docs-schedule-call-form-cancel");
+    if (closeButton !== null) {
+        closeButton.style.display = "none";
+    }
+
     let formContainer = document.getElementById("docs-schedule-call-form-content");
     if (formContainer !== null) {
         formContainer.style.height = null;
@@ -695,6 +701,11 @@ function hasFilledScheduleCallForm() {
     return isFilled === "true";
 }
 
+function onScheduleCallCancelClicked() {
+    sendButtonClickedEvent("docs-schedule-call-form-cancel");
+    closeScheduleCallForm();
+}
+
 function addInfoForm() {
     if (isMobileDevice()) {
         return;
@@ -706,6 +717,13 @@ function addInfoForm() {
             style="box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; display: flex; flex-direction: column;
                 position: fixed; top: 0px; left: 0px; z-index: 999999999999; height: 100%; width: 100%; align-items: center;
                 justify-content: center; background-color: #000000; visibility: hidden; overflow: scroll">
+                <div
+                    onclick="onScheduleCallCancelClicked()"
+                    id="docs-schedule-call-form-cancel"
+                    style="color: #dddddd; font-size: 18px; cursor: pointer; position: absolute; top: 10px; right: 10px">
+                        Close
+                </div>
+
                 <div
                     id="docs-info-form-disclaimer"
                     style="color: #ffffff; font-size: 16px; font-weight: bold; margin-top: 10px; margin-bottom: 10px;">
